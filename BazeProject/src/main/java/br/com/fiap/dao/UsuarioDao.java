@@ -41,8 +41,8 @@ private Connection conexao;
 		String email = result.getString("nm_email");
 		String login = result.getString("nm_login");
 		String senha = result.getString("nm_senha");
-		String peso = result.getString("nr_peso");
-		String altura = result.getString("nr_altura");
+		int peso = result.getInt("nr_peso");
+		int altura = result.getInt("nr_altura");
 		
 		
 		UsuarioTO usuario = new UsuarioTO(id, nome, idade, cpf, rg, genero, email,login,senha, peso, altura, status);
@@ -73,22 +73,32 @@ private Connection conexao;
 		/**
 		 * Utilizar aqui o preparedStatement com o insert do sql
 		 */
-		PreparedStatement ps = conexao.prepareStatement("insert into t_baze_usuario values "
-				+ "(sq_t_baze_usuario.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", new String[] {"id_usuario"} );
+		PreparedStatement ps = conexao.prepareStatement("insert into t_baze_usuario (ID_USUARIO ,"
+				+ " NR_RG ,"
+				+ " NR_CPF "
+				+ ", NM_EMAIL "
+				+ ", NM_USUARIO "
+				+ ", NR_IDADE "
+				+ ", NR_PESO "
+				+ ", NR_ALTURA "
+				+ ", ST_CLIENTE "
+				+ ", TP_GENERO "
+				+ ", NM_LOGIN, "
+				+ "NM_SENHA) values "
+				+ "(sq_id_usuario.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new String[] {"id_usuario"} );
 		
-		ps.setInt(1, usuarioTo.getId());
-		ps.setString(2, usuarioTo.getNome());
-		ps.setInt(3, usuarioTo.getIdade());
-		ps.setString(4, usuarioTo.getCpf());
-		ps.setString(5, usuarioTo.getRg());
-		ps.setString(6, usuarioTo.getGenero());
-		ps.setString(7, usuarioTo.getEmail());
-		ps.setString(8, usuarioTo.getLogin());
-		ps.setString(9, usuarioTo.getSenha());
-		ps.setString(10, usuarioTo.getPeso());
-		ps.setString(11, usuarioTo.getAltura());
-		ps.setString(12, usuarioTo.getStatus());
 		
+		ps.setString(1, usuarioTo.getRg());
+		ps.setString(2, usuarioTo.getCpf());
+		ps.setString(3, usuarioTo.getEmail());
+		ps.setString(4, usuarioTo.getNome());
+		ps.setInt(5, usuarioTo.getIdade());
+		ps.setInt(6, usuarioTo.getPeso());
+		ps.setInt(7, usuarioTo.getAltura());
+		ps.setString(8, usuarioTo.getStatus());
+		ps.setString(9, usuarioTo.getGenero());
+		ps.setString(10, usuarioTo.getLogin());
+		ps.setString(11, usuarioTo.getSenha());
 		
 		/**
 		 * Comando usado para executar uma query
@@ -115,8 +125,8 @@ private Connection conexao;
 		ps.setString(4, usuario.getRg());
 		ps.setString(5, usuario.getGenero());
 		ps.setString(6, usuario.getEmail());
-		ps.setString(7, usuario.getPeso());
-		ps.setString(8, usuario.getAltura());
+		ps.setInt(7, usuario.getPeso());
+		ps.setInt(8, usuario.getAltura());
 		ps.setString(9, usuario.getStatus());
 		ps.setInt(10, usuario.getId());
 		

@@ -17,8 +17,8 @@ public class UsuarioTO {
 	private String email;
 	private String login;
 	private String senha;
-	private String peso;
-	private String altura;
+	private int peso;
+	private int altura;
 	private String status;
 	private EnderecoTO enderecoTo;
 	private TelefoneTO telefoneTo;
@@ -30,7 +30,7 @@ public class UsuarioTO {
 	 * Construtor com parametros
 	 */
 	public UsuarioTO(int id, String nome, int idade, String cpf, String rg, String genero, String email,String login, String senha,
-			String peso, String altura, String status) {
+			int peso, int altura, String status) {
 		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
@@ -145,19 +145,19 @@ public class UsuarioTO {
 		this.senha = senha;
 	}
 
-	public String getPeso() {
+	public int getPeso() {
 		return peso;
 	}
 
-	public void setPeso(String peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
 	}
 
-	public String getAltura() {
+	public int getAltura() {
 		return altura;
 	}
 
-	public void setAltura(String altura) {
+	public void setAltura(int altura) {
 		this.altura = altura;
 	}
 	

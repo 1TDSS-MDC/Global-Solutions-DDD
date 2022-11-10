@@ -15,7 +15,7 @@ public class Teste {
 		List<UsuarioTO> lista = dao.listar();
 		
 		for (UsuarioTO  user : lista) {
-			System.out.println(user.getNome());
+			System.out.println(user.getAltura());
 		}
 
 	}
