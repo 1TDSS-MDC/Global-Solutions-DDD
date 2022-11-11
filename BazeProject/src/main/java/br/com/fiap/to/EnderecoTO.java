@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class EnderecoTO {
 
+	private int idUsuario;
 	private int id;
 	private String logradouro;
 	private int numero;
@@ -14,16 +15,14 @@ public class EnderecoTO {
 	private String pais;
 	private String complemento;
 	
-	/**
-	 * Construtor vazio
-	 */
-	public EnderecoTO() {}
 
 	/**
 	 * Construtor com parametros
 	 */
-	public EnderecoTO(int id, String logradouro, int numero, String bairro, String cep, String cidade,
+	public EnderecoTO( int idUsuario, int id, String logradouro, int numero, String bairro, String cep, String cidade,
 			String pais, String complemento) {
+		
+		this.idUsuario = idUsuario;
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -33,6 +32,19 @@ public class EnderecoTO {
 		this.pais = pais;
 		this.complemento = complemento;
 	}
+	
+	
+	public EnderecoTO() {}
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 
 	public int getId() {
 		return id;

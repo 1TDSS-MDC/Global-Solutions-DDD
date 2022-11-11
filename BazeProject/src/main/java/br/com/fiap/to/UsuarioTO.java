@@ -51,10 +51,8 @@ public class UsuarioTO {
 	 * @param login
 	 * @param senha
 	 */
-	public UsuarioTO(int id, String login, String senha) {
+	public UsuarioTO(int id) {
 		this.id = id;
-		this.login = login;
-		this.senha = senha;
 	}
 	
 	

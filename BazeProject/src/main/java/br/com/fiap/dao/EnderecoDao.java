@@ -18,6 +18,8 @@ import br.com.fiap.to.UsuarioTO;
 public class EnderecoDao {
 
 private Connection conexao;
+
+private UsuarioTO usuario;
 	
 	/**
 	 * Construtor que seve para receber a conexao
@@ -34,6 +36,8 @@ private Connection conexao;
 	 * Usando o resultSet para recuperar o id gerado pela sequence
 	 */
 	private EnderecoTO parse(ResultSet result) throws SQLException {
+		
+		int idUsuario = result.getInt("id_usuario");
 		int id = result.getInt("id_ender_usuario");
 		String logradouro = result.getString("nm_logradouro");
 		int numero = result.getInt("nr_logradouro");
@@ -44,7 +48,7 @@ private Connection conexao;
 		String complemento = result.getString("ds_complemento");
 		
 		
-		EnderecoTO endereco = new EnderecoTO(id, logradouro, numero, bairro, cep, cidade, pais, complemento);
+		EnderecoTO endereco = new EnderecoTO(idUsuario, id, logradouro, numero, bairro, cep, cidade, pais, complemento);
 		
 		return endereco;
 	}
@@ -72,7 +76,7 @@ private Connection conexao;
 		/**
 		 * Utilizar aqui o preparedStatement com o insert do sql
 		 */
-		PreparedStatement ps = conexao.prepareStatement("insert into t_baze_ender_usuario (ID_ENDER_USUARIO ,"
+		PreparedStatement ps = conexao.prepareStatement("insert into t_baze_ender_usuario (ID_USUARIO, ID_ENDER_USUARIO, "
 				+ " NM_LOGRADOURO ,"
 				+ " NR_LOGRADOURO ,"
 				+ " NM_CIDADE ,"
@@ -81,8 +85,7 @@ private Connection conexao;
 				+ " NR_CEP ,"
 				+ " DS_COMPLEMENTO)"
 				+ " values "
-				+ "(SQ_ID_ENDER_USUARIO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)", new String[] {"id_ender_usuario"});
-		
+				+ "(SQ_ID_ENDER_USUARIO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)", new String[] {"id_ender_usuario"});
 		
 		ps.setString(1, enderecoTo.getLogradouro());
 		ps.setInt(2, enderecoTo.getNumero());
@@ -91,6 +94,8 @@ private Connection conexao;
 		ps.setString(5, enderecoTo.getPais());
 		ps.setString(6, enderecoTo.getCidade());
 		ps.setString(7, enderecoTo.getComplemento());
+		ps.setInt(8, usuario.getId());
+		
 	
 		/**
 		 * Comando usado para executar uma query
