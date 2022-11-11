@@ -16,20 +16,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-
-import br.com.fiap.dao.UsuarioDao;
+import br.com.fiap.dao.BicicletaEletricaDao;
 import br.com.fiap.exception.IdNotFoundException;
-import br.com.fiap.factory.ConnectionFactory;
-import br.com.fiap.to.UsuarioTO;
+import br.com.fiap.to.BicicletaEletricaTO;
 
-@Path("/usuario")
-public class UsuarioResource {
+@Path("/eletrica")
+public class BicicletaEletricaResource {
 
-	private UsuarioDao dao;
+private BicicletaEletricaDao dao;
 	
-	public UsuarioResource() {
+	public BicicletaEletricaResource() {
 		try {
-			dao = new UsuarioDao();
+			dao = new BicicletaEletricaDao();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,19 +35,19 @@ public class UsuarioResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<UsuarioTO> get() throws SQLException {
+	public List<BicicletaEletricaTO> get() throws SQLException {
 		return dao.listar();
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response cadastrar(UsuarioTO usuario, @Context UriInfo uriInfo) throws SQLException {
+	public Response cadastrar(BicicletaEletricaTO bicicletaEletrica, @Context UriInfo uriInfo) throws SQLException {
 		
-		dao.cadastrar(usuario);
+		dao.cadastrar(bicicletaEletrica);
 		
 		UriBuilder builder = uriInfo.getAbsolutePathBuilder();
 		
-		builder.path(Integer.toString(usuario.getId()));
+		builder.path(Integer.toString(bicicletaEletrica.getId()));
 		
 		return Response.created(builder.build()).build();
 	}
@@ -57,9 +55,9 @@ public class UsuarioResource {
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(UsuarioTO usuario, @PathParam("id") int id) throws SQLException, IdNotFoundException {
-		usuario.setId(id);
-		dao.atualizar(usuario);
+	public Response atualizar(BicicletaEletricaTO bicicletaEletrica, @PathParam("id") int id) throws SQLException, IdNotFoundException {
+		bicicletaEletrica.setId(id);
+		dao.atualizar(bicicletaEletrica);
 		
 		return Response.ok().build();
 	}

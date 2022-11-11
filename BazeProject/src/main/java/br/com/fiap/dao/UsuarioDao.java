@@ -116,24 +116,51 @@ private Connection conexao;
 	}
 	
 	public void atualizar(UsuarioTO usuario) throws SQLException, IdNotFoundException {
-		PreparedStatement ps = conexao.prepareStatement("update t_baze_usuario set nm_usuario = ?, "
-				+ "nr_idade = ?, nr_cpf = ?, nr_rg = ?, tp_genero = ?, nm_email = ?, nr_peso = ?, nr_altura = ?, st_cliente = ?, where id_usuario = ?");
+		PreparedStatement ps = conexao.prepareStatement
+				("update t_baze_usuario "
+				+ "set nr_rg = ?, "
+				+ "nr_cpf = ?,"
+				+ " nm_email = ?,"
+				+ " nm_usuario = ?,"
+				+ " nr_idade = ?,"
+				+ " nr_peso = ?,"
+				+ " nr_altura = ?,"
+				+ " st_cliente = ?,"
+				+ " tp_genero = ?,"
+				+ " nm_login = ?,"
+				+ " nm_senha = ?"
+				+ " where id_usuario = ?");
 		
-		ps.setString(1, usuario.getNome());
-		ps.setInt(2, usuario.getIdade());
-		ps.setString(3, usuario.getCpf());
-		ps.setString(4, usuario.getRg());
-		ps.setString(5, usuario.getGenero());
-		ps.setString(6, usuario.getEmail());
-		ps.setInt(7, usuario.getPeso());
-		ps.setInt(8, usuario.getAltura());
-		ps.setString(9, usuario.getStatus());
-		ps.setInt(10, usuario.getId());
+		ps.setString(1, usuario.getRg());
+		ps.setString(2, usuario.getCpf());
+		ps.setString(3, usuario.getEmail());
+		ps.setString(4, usuario.getNome());
+		ps.setInt(5, usuario.getIdade());
+		ps.setInt(6, usuario.getPeso());
+		ps.setInt(7, usuario.getAltura());
+		ps.setString(8, usuario.getStatus());
+		ps.setString(9, usuario.getGenero());
+		ps.setString(10, usuario.getLogin());
+		ps.setString(11, usuario.getSenha());
+		ps.setInt(12, usuario.getId());
+			
 		
 		int quantidade = ps.executeUpdate();
 		
 		if(quantidade == 0) {
 			throw new IdNotFoundException("Usuario nao encontrado, nao é possivel fazer atualizacao ");
+		}
+	}
+	
+	public void deletar(int id) throws SQLException, IdNotFoundException {
+		PreparedStatement ps = conexao.prepareStatement("delete from t_baze_usuario where id_usuario = ?");
+		
+		ps.setInt(1, id);
+		
+		int quantidade  = ps.executeUpdate();
+		
+		if(quantidade == 0) {
+			throw new IdNotFoundException("usuario nao teve seu id encontrado, e nao podera ser removido ");
 		}
 	}
 }

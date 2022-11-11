@@ -17,19 +17,18 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import br.com.fiap.dao.UsuarioDao;
+import br.com.fiap.dao.EnderecoDao;
 import br.com.fiap.exception.IdNotFoundException;
-import br.com.fiap.factory.ConnectionFactory;
-import br.com.fiap.to.UsuarioTO;
+import br.com.fiap.to.EnderecoTO;
 
-@Path("/usuario")
-public class UsuarioResource {
+@Path("/endereco")
+public class EnderecoResource {
 
-	private UsuarioDao dao;
+private EnderecoDao dao;
 	
-	public UsuarioResource() {
+	public EnderecoResource() {
 		try {
-			dao = new UsuarioDao();
+			dao = new EnderecoDao();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,19 +36,19 @@ public class UsuarioResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<UsuarioTO> get() throws SQLException {
+	public List<EnderecoTO> get() throws SQLException {
 		return dao.listar();
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response cadastrar(UsuarioTO usuario, @Context UriInfo uriInfo) throws SQLException {
+	public Response cadastrar(EnderecoTO endereco, @Context UriInfo uriInfo) throws SQLException {
 		
-		dao.cadastrar(usuario);
+		dao.cadastrar(endereco);
 		
 		UriBuilder builder = uriInfo.getAbsolutePathBuilder();
 		
-		builder.path(Integer.toString(usuario.getId()));
+		builder.path(Integer.toString(endereco.getId()));
 		
 		return Response.created(builder.build()).build();
 	}
@@ -57,9 +56,9 @@ public class UsuarioResource {
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(UsuarioTO usuario, @PathParam("id") int id) throws SQLException, IdNotFoundException {
-		usuario.setId(id);
-		dao.atualizar(usuario);
+	public Response atualizar(EnderecoTO endereco, @PathParam("id") int id) throws SQLException, IdNotFoundException {
+		endereco.setId(id);
+		dao.atualizar(endereco);
 		
 		return Response.ok().build();
 	}

@@ -9,12 +9,10 @@ public class EnderecoTO {
 	private String logradouro;
 	private int numero;
 	private String bairro;
-	private int cep;
+	private String cep;
 	private String cidade;
-	private String estado;
 	private String pais;
 	private String complemento;
-	private UsuarioTO usuarioTO;
 	
 	/**
 	 * Construtor vazio
@@ -24,18 +22,16 @@ public class EnderecoTO {
 	/**
 	 * Construtor com parametros
 	 */
-	public EnderecoTO(int id, String logradouro, int numero, String bairro, int cep, String cidade, String estado,
-			String pais, String complemento, UsuarioTO usuarioTO) {
+	public EnderecoTO(int id, String logradouro, int numero, String bairro, String cep, String cidade,
+			String pais, String complemento) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.bairro = bairro;
 		this.cep = cep;
 		this.cidade = cidade;
-		this.estado = estado;
 		this.pais = pais;
 		this.complemento = complemento;
-		this.usuarioTO = usuarioTO;
 	}
 
 	public int getId() {
@@ -70,11 +66,11 @@ public class EnderecoTO {
 		this.bairro = bairro;
 	}
 
-	public int getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(int cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
@@ -84,14 +80,6 @@ public class EnderecoTO {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 	public String getPais() {
@@ -108,13 +96,5 @@ public class EnderecoTO {
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
-	}
-
-	public UsuarioTO getUsuarioTO() {
-		return usuarioTO;
-	}
-
-	public void setUsuarioTO(UsuarioTO usuarioTO) {
-		this.usuarioTO = usuarioTO;
 	}
 }

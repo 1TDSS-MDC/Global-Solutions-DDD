@@ -16,20 +16,19 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-
-import br.com.fiap.dao.UsuarioDao;
+import br.com.fiap.dao.CorridaDao;
 import br.com.fiap.exception.IdNotFoundException;
-import br.com.fiap.factory.ConnectionFactory;
-import br.com.fiap.to.UsuarioTO;
+import br.com.fiap.to.CorridaTO;
 
-@Path("/usuario")
-public class UsuarioResource {
 
-	private UsuarioDao dao;
+@Path("/corrida")
+public class CorridaResource {
+
+private CorridaDao dao;
 	
-	public UsuarioResource() {
+	public CorridaResource() {
 		try {
-			dao = new UsuarioDao();
+			dao = new CorridaDao();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,19 +36,19 @@ public class UsuarioResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<UsuarioTO> get() throws SQLException {
+	public List<CorridaTO> get() throws SQLException {
 		return dao.listar();
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response cadastrar(UsuarioTO usuario, @Context UriInfo uriInfo) throws SQLException {
+	public Response cadastrar(CorridaTO corrida, @Context UriInfo uriInfo) throws SQLException {
 		
-		dao.cadastrar(usuario);
+		dao.cadastrar(corrida);
 		
 		UriBuilder builder = uriInfo.getAbsolutePathBuilder();
 		
-		builder.path(Integer.toString(usuario.getId()));
+		builder.path(Integer.toString(corrida.getId()));
 		
 		return Response.created(builder.build()).build();
 	}
@@ -57,9 +56,9 @@ public class UsuarioResource {
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(UsuarioTO usuario, @PathParam("id") int id) throws SQLException, IdNotFoundException {
-		usuario.setId(id);
-		dao.atualizar(usuario);
+	public Response atualizar(CorridaTO corrida, @PathParam("id") int id) throws SQLException, IdNotFoundException {
+		corrida.setId(id);
+		dao.atualizar(corrida);
 		
 		return Response.ok().build();
 	}

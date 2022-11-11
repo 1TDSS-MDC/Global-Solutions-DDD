@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TelefoneTO {
 
 	private int id;
-	private int celular;
+	private String celular;
 	private int ddd;
 	private int ddi;
 	
@@ -20,8 +20,7 @@ public class TelefoneTO {
 	 * @param
 	 */
 	
-	public TelefoneTO(int id, int celular, int ddd, int ddi) {
-		super();
+	public TelefoneTO(int id, String celular, int ddd, int ddi) {
 		this.id = id;
 		this.celular = celular;
 		this.ddd = ddd;
@@ -36,11 +35,11 @@ public class TelefoneTO {
 		this.id = id;
 	}
 
-	public int getCelular() {
+	public String getCelular() {
 		return celular;
 	}
 
-	public void setCelular(int celular) {
+	public void setCelular(String celular) {
 		this.celular = celular;
 	}
 
