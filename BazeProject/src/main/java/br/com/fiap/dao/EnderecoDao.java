@@ -12,14 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import br.com.fiap.exception.IdNotFoundException;
 import br.com.fiap.factory.ConnectionFactory;
 import br.com.fiap.to.EnderecoTO;
-import br.com.fiap.to.UsuarioTO;
 
 @XmlRootElement
 public class EnderecoDao {
 
 private Connection conexao;
 
-private UsuarioTO usuario;
+
 	
 	/**
 	 * Construtor que seve para receber a conexao
@@ -85,16 +84,16 @@ private UsuarioTO usuario;
 				+ " NR_CEP ,"
 				+ " DS_COMPLEMENTO)"
 				+ " values "
-				+ "(SQ_ID_ENDER_USUARIO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)", new String[] {"id_ender_usuario"});
+				+ "(?, SQ_ID_ENDER_USUARIO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)", new String[] {"id_ender_usuario"});
 		
-		ps.setString(1, enderecoTo.getLogradouro());
-		ps.setInt(2, enderecoTo.getNumero());
-		ps.setString(3, enderecoTo.getBairro());
-		ps.setString(4, enderecoTo.getCep());
-		ps.setString(5, enderecoTo.getPais());
-		ps.setString(6, enderecoTo.getCidade());
-		ps.setString(7, enderecoTo.getComplemento());
-		ps.setInt(8, usuario.getId());
+		ps.setInt(1, enderecoTo.getIdUsuario());
+		ps.setString(2, enderecoTo.getLogradouro());
+		ps.setInt(3, enderecoTo.getNumero());
+		ps.setString(4, enderecoTo.getBairro());
+		ps.setString(5, enderecoTo.getCep());
+		ps.setString(6, enderecoTo.getPais());
+		ps.setString(7, enderecoTo.getCidade());
+		ps.setString(8, enderecoTo.getComplemento());
 		
 	
 		/**
@@ -121,6 +120,7 @@ private UsuarioTO usuario;
 				+ " nm_pais = ?,"
 				+ " nr_cep = ?,"
 				+ " ds_complemento = ?,"
+				+ " id_usuario = ?"
 				+ " where id_ender_usuario = ?");
 		
 		ps.setString(1, endereco.getLogradouro());
@@ -130,12 +130,13 @@ private UsuarioTO usuario;
 		ps.setString(5, endereco.getPais());
 		ps.setString(6, endereco.getCep());
 		ps.setString(7, endereco.getComplemento());
+		ps.setInt(8, endereco.getIdUsuario());
 			
 		
 		int quantidade = ps.executeUpdate();
 		
 		if(quantidade == 0) {
-			throw new IdNotFoundException("Endereco nao encontrado, nao é possivel fazer atualizacao ");
+			throw new IdNotFoundException("Endereco nao encontrado, nao Ã© possivel fazer atualizacao ");
 		}
 	}
 	

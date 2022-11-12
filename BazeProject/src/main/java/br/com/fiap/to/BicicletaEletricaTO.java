@@ -1,6 +1,6 @@
 package br.com.fiap.to;
 
-public class BicicletaEletricaTO  extends BicicletaTO{
+public class BicicletaEletricaTO {
 
 	private int id;
 	private int bateria;
@@ -9,10 +9,11 @@ public class BicicletaEletricaTO  extends BicicletaTO{
 	private int quadro;
 	private String peso;
 	private String cor;
+	private int idUsuario;
 	
 
 	//Construtor com parametros
-	public BicicletaEletricaTO(int id, int bateria, String motor, String aro, int quadro, String peso, String cor) {
+	public BicicletaEletricaTO(int id, int bateria, String motor, String aro, int quadro, String peso, String cor , int idUsuario) {
 		this.id = id;
 		this.bateria = bateria;
 		this.motor = motor;
@@ -20,6 +21,7 @@ public class BicicletaEletricaTO  extends BicicletaTO{
 		this.quadro = quadro;
 		this.peso = peso;
 		this.cor = cor;
+		this.idUsuario = idUsuario;
 	}
 
 	//Construtor vazio
@@ -80,6 +82,14 @@ public class BicicletaEletricaTO  extends BicicletaTO{
 
 	public void setCor(String cor) {
 		this.cor = cor;
+	}
+	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setCor(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	

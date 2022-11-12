@@ -38,8 +38,9 @@ private Connection conexao;
 		int quadro = result.getInt("nr_quadro");
 		String cor = result.getString("nm_cor");
 		String peso = result.getString("nr_peso");
+		int idUsuario = result.getInt("id_usuario");
 		
-		BicicletaEletricaTO bicicletaEletrica = new BicicletaEletricaTO(id, bateria, motor, aro, quadro, cor, peso);
+		BicicletaEletricaTO bicicletaEletrica = new BicicletaEletricaTO(id, bateria, motor, aro, quadro, peso, cor, idUsuario);
 		
 		return bicicletaEletrica;
 	}
@@ -67,22 +68,24 @@ private Connection conexao;
 		/**
 		 * Utilizar aqui o preparedStatement com o insert do sql
 		 */
-		PreparedStatement ps = conexao.prepareStatement("insert into t_baze_bike_eletrica ("
-				+ " ID_BIKE_ELETRICA , "
-				+ "NR_AMPERES_BATERIA , "
-				+ "NM_MOTOR , "
-				+ "NR_ARO , "
-				+ "NR_QUADRO , "
-				+ "NM_COR , "
-				+ "NR_PESO) values "
-				+ "(sq_id_bike_eletrica.nextval, ?, ?, ?, ?, ?, ?)", new String[] {"id_bike_eletrica"});
+		PreparedStatement ps = conexao.prepareStatement("insert into t_baze_bike_eletrica (INSERT INTO T_BAZE_BIKE_ELETRICA (ID_USUARIO ,"
+				+ " ID_BIKE_ELETRICA ,"
+				+ " NR_AMPERES_BATERIA ,"
+				+ " NM_MOTOR ,"
+				+ " NR_ARO ,"
+				+ " NR_QUADRO ,"
+				+ " NR_PESO ,"
+				+ " NM_COR)"
+				+ " values "
+				+ "(?, sq_id_bike_eletrica.nextval, ?, ?, ?, ?, ?, ?)", new String[] {"id_bike_eletrica"});
 		
-		ps.setInt(1, bikeEletricaTo.getBateria());
-		ps.setString(2, bikeEletricaTo.getMotor());
-		ps.setString(3, bikeEletricaTo.getAro());
-		ps.setInt(4, bikeEletricaTo.getQuadro());
-		ps.setString(5, bikeEletricaTo.getCor());
+		ps.setInt(1, bikeEletricaTo.getIdUsuario());
+		ps.setInt(2, bikeEletricaTo.getBateria());
+		ps.setString(3, bikeEletricaTo.getMotor());
+		ps.setString(4, bikeEletricaTo.getAro());
+		ps.setInt(5, bikeEletricaTo.getQuadro());
 		ps.setString(6, bikeEletricaTo.getPeso());
+		ps.setString(7, bikeEletricaTo.getCor());
 	
 		/**
 		 * Comando usado para executar uma query
@@ -122,7 +125,7 @@ private Connection conexao;
 		int quantidade = ps.executeUpdate();
 		
 		if(quantidade == 0) {
-			throw new IdNotFoundException("Bicicleta eletrica nao encontrado, nao é possivel fazer atualizacao ");
+			throw new IdNotFoundException("Bicicleta eletrica nao encontrado, nao Ã© possivel fazer atualizacao ");
 		}
 	}
 	

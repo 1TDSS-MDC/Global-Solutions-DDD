@@ -35,9 +35,10 @@ private Connection conexao;
 		String celular = result.getString("nr_telefone");
 		int ddd = result.getInt("nr_ddd");
 		int ddi = result.getInt("nr_ddi");
+		int idUsuario = result.getInt("id_usuario");
 		
 		
-		TelefoneTO telefone = new TelefoneTO(id, celular, ddd, ddi);
+		TelefoneTO telefone = new TelefoneTO(id, celular, ddd, ddi, idUsuario);
 		
 		return telefone;
 	}
@@ -70,12 +71,13 @@ private Connection conexao;
 				+ " NR_TELEFONE ,"
 				+ " NR_DDD ,"
 				+ " NR_DDI)  values "
-				+ "(SQ_ID_TELEFONE_USUARIO.NEXTVAL, ?, ?, ?)", new String[] {"ID_TELEFONE_USUARIO"});
+				+ "(?, SQ_ID_TELEFONE_USUARIO.NEXTVAL, ?, ?, ?)", new String[] {"ID_TELEFONE_USUARIO"});
 		
 		
-		ps.setString(1, telefoneTo.getCelular());
-		ps.setInt(2, telefoneTo.getDdd());
-		ps.setInt(3, telefoneTo.getDdi());
+		ps.setInt(1, telefoneTo.getIdUsuario());
+		ps.setString(2, telefoneTo.getCelular());
+		ps.setInt(3, telefoneTo.getDdd());
+		ps.setInt(4, telefoneTo.getDdi());
 		
 		
 		/**
@@ -110,7 +112,7 @@ private Connection conexao;
 		int quantidade = ps.executeUpdate();
 		
 		if(quantidade == 0) {
-			throw new IdNotFoundException("Telefone nao encontrado, nao é possivel fazer atualizacao ");
+			throw new IdNotFoundException("Telefone nao encontrado, nao Ã© possivel fazer atualizacao ");
 		}
 	}
 	

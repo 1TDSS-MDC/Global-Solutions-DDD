@@ -33,9 +33,10 @@ private Connection conexao;
 		int id = result.getInt("id_corrida");
 		String km = result.getString("nr_km");
 		String tempo = result.getString("nr_tempo");
+		int idUsuario = result.getInt("id_usuario");
 		
 		
-		CorridaTO endereco = new CorridaTO(id, km, tempo);
+		CorridaTO endereco = new CorridaTO(id, km, tempo, idUsuario);
 		
 		return endereco;
 	}
@@ -68,11 +69,12 @@ private Connection conexao;
 				+ " NR_KM ,"
 				+ " NR_TEMPO) "
 				+ " values "
-				+ "(SQ_ID_CORRIDA.NEXTVAL, ?, ?)", new String[] {"id_corrida"});
+				+ "(?, SQ_ID_CORRIDA.NEXTVAL, ?, ?)", new String[] {"id_corrida"});
 		
 		
-		ps.setString(1, corridaTo.getKm());
-		ps.setString(1, corridaTo.getTempo());
+		ps.setInt(1, corridaTo.getIdUsuario());
+		ps.setString(2, corridaTo.getKm());
+		ps.setString(3, corridaTo.getTempo());
 	
 		/**
 		 * Comando usado para executar uma query
@@ -103,7 +105,7 @@ private Connection conexao;
 		int quantidade = ps.executeUpdate();
 		
 		if(quantidade == 0) {
-			throw new IdNotFoundException("Corrida nao encontrado, nao é possivel fazer atualizacao ");
+			throw new IdNotFoundException("Corrida nao encontrado, nao Ã© possivel fazer atualizacao ");
 		}
 	}
 	

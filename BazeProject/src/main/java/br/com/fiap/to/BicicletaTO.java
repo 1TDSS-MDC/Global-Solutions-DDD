@@ -9,9 +9,10 @@ public class BicicletaTO {
 	private String cor;
 	private String tipo;
 	private int marcha;
+	private int idUsuario;
 	
 	//Construtor com parametros
-	public BicicletaTO(int id, String aro, int quadro, String peso, String cor, String tipo, int marcha) {
+	public BicicletaTO(int id, String aro, int quadro, String peso, String cor, String tipo, int marcha, int idUsuario) {
 		this.id = id;
 		this.aro = aro;
 		this.quadro = quadro;
@@ -19,6 +20,8 @@ public class BicicletaTO {
 		this.cor = cor;
 		this.tipo = tipo;
 		this.marcha = marcha;
+		this.idUsuario = idUsuario;
+		
 	}
 
 	//Construtor vazio
@@ -92,5 +95,14 @@ public class BicicletaTO {
 
 	public void setMarcha(int marcha) {
 		this.marcha = marcha;
+	}
+	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 }

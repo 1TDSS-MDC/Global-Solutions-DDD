@@ -37,9 +37,10 @@ private Connection conexao;
 		String cor = result.getString("nm_cor");
 		String tipo = result.getString("nm_tipo");
 		int marcha = result.getInt("nr_marcha");
+		int idUsuario = result.getInt("id_usuario");
 		
 		
-		BicicletaTO bicicleta = new BicicletaTO(id, aro, quadro, peso, cor, tipo, marcha);
+		BicicletaTO bicicleta = new BicicletaTO(id, aro, quadro, peso, cor, tipo, marcha, idUsuario);
 		
 		return bicicleta;
 	}
@@ -75,15 +76,16 @@ private Connection conexao;
 				+ " NM_COR ,"
 				+ " NM_TIPO , "
 				+ " NR_MARCHA) values "
-				+ "(sq_id_bike.nextval, ?, ?, ?, ?, ?, ?, ?)", new String[] {"id_bike"});
+				+ "(?, sq_id_bike.nextval, ?, ?, ?, ?, ?, ?)", new String[] {"id_bike"});
 		
 		
-		ps.setString(1, bikeTo.getAro());
-		ps.setInt(2, bikeTo.getQuadro());
-		ps.setString(3, bikeTo.getPeso());
-		ps.setString(4, bikeTo.getCor());
-		ps.setString(5, bikeTo.getTipo());
-		ps.setInt(6, bikeTo.getMarcha());
+		ps.setInt(1, bikeTo.getIdUsuario());
+		ps.setString(2, bikeTo.getAro());
+		ps.setInt(3, bikeTo.getQuadro());
+		ps.setString(4, bikeTo.getPeso());
+		ps.setString(5, bikeTo.getCor());
+		ps.setString(6, bikeTo.getTipo());
+		ps.setInt(7, bikeTo.getMarcha());
 	
 		/**
 		 * Comando usado para executar uma query
@@ -123,7 +125,7 @@ private Connection conexao;
 		int quantidade = ps.executeUpdate();
 		
 		if(quantidade == 0) {
-			throw new IdNotFoundException("Bicicleta nao encontrado, nao é possivel fazer atualizacao ");
+			throw new IdNotFoundException("Bicicleta nao encontrado, nao Ã© possivel fazer atualizacao ");
 		}
 	}
 	

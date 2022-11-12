@@ -9,6 +9,7 @@ public class TelefoneTO {
 	private String celular;
 	private int ddd;
 	private int ddi;
+	private int idUsuario;
 	
 	/**
 	 * Construtor vazio
@@ -20,11 +21,12 @@ public class TelefoneTO {
 	 * @param
 	 */
 	
-	public TelefoneTO(int id, String celular, int ddd, int ddi) {
+	public TelefoneTO(int id, String celular, int ddd, int ddi, int idUsuario) {
 		this.id = id;
 		this.celular = celular;
 		this.ddd = ddd;
 		this.ddi = ddi;
+		this.idUsuario = idUsuario;
 	}
 
 	public int getId() {
@@ -57,5 +59,13 @@ public class TelefoneTO {
 
 	public void setDdi(int ddi) {
 		this.ddi = ddi;
+	}
+	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 }
