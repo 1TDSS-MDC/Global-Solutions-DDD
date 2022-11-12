@@ -25,6 +25,44 @@ private Connection conexao;
 		this.conexao = ConnectionFactory.getConnection();
 	}
 	
+	/**
+	 * Metodo usado para pegar usuario e senha
+	 * @param user
+	 * @return
+	 */
+	public UsuarioTO login(UsuarioTO user) {
+		
+PreparedStatement ps = null;
+		
+		try {
+			
+			String sqlStr = "SELECT * FROM T_BAZE_USUARIO WHERE NM_LOGIN = ? AND NM_SENHA = ?";
+			
+			ps = conexao.prepareStatement(sqlStr);
+			
+			ps.setString(1, user.getLogin());
+			ps.setString(2, user.getSenha());
+			
+			ResultSet result =  ps.executeQuery();
+			
+			UsuarioTO usuarioTo = null;
+			
+			while (result.next()) {
+				user = new UsuarioTO();
+				usuarioTo.setLogin(result.getString(1));
+				usuarioTo.setSenha(result.getString(2));
+			}
+			
+			result.close();
+			ps.close();
+			
+			return user;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	/**
 	 * Usando o resultSet para recuperar o id gerado pela sequence
@@ -163,4 +201,5 @@ private Connection conexao;
 			throw new IdNotFoundException("usuario nao teve seu id encontrado, e nao podera ser removido ");
 		}
 	}
+	
 }
